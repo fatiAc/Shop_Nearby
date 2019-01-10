@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title><ui:insert name="title">All shops</ui:insert></title>
+
+    </h:head>
+    <body>
+        <div class="container">
+            <div class="col-lg-12">
+                <h:form id="allShopForm" rendered="#{shopController.isConnectedUser()}">
+                    <br></br>
+                    <b:commandLink value="Preffered shops" action="/shop/LikedShops?faces-redirect=true"/>
+                    <b:commandLink value="Deconnection" action="#{shopController.deconnection()}" style="margin-left: 900px"/>
+
+                    <p:separator/>
+                    <b:panel class="panel">
+                        <c:forEach items="#{shopController.items}" var="shop">
+                            <div class="panel panel-info col-lg-2" style="margin-top: 10px; margin-right: 40px; margin-left: 40px; padding-top: 5px">
+                                <div class="panel-heading">                                
+                                    <h:outputText value="#{shop.name}"/>
+                                </div>
+                                <div class="panel-body">
+                                    <p:graphicImage url="http://placehold.it/150x150" style="height: 150px; width: 150px; padding-right: 30px"/><br></br>
+                                    <h:outputText value="#{shop.city}"/><br></br>
+                                    <div class="row">
+                                        <b:commandButton iconAwesome="thumbs-o-down" action="#{shopController.dislikeShop(shop)}" update="allShopForm" style="background-color: #{shopController.dislikeColor(shop)}; margin-left: 20px"/>
+                                        <b:commandButton iconAwesome="thumbs-o-up" action="#{shopController.likedShope(shop)}" update="allShopForm" style="background-color:#{shopController.likeColor(shop)}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+                    </b:panel>
+                </h:form>
+            </div>
+        </div>
+    </body>
+
+
+</html>

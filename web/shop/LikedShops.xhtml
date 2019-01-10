@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title><ui:insert name="title">Liked shops</ui:insert></title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="col-lg-12">
+                <br></br>
+                <h:form id="likedShopForm" rendered="#{shopController.isConnectedUser()}">
+                    <b:commandLink action="/shop/AllShops?faces-redirect=true" value="All shops"/>
+                    <b:commandLink value="Deconnection" action="#{shopController.deconnection()}" style="margin-left: 900px"/>
+
+                    <p:separator/>
+                    <b:panel class="panel">
+                        <c:forEach items="#{shopController.likedShops}" var="shop">
+                            <div class="panel panel-info col-lg-2" style="margin-top: 10px; margin-right: 40px; margin-left: 40px; padding-top: 5px">
+                                <div class="panel-heading">                                
+                                    <h:outputText value="#{shop.name}"/>
+                                </div>
+                                <div class="panel-body">
+                                    <p:graphicImage url="http://placehold.it/150x150" style="height: 150px; width: 150px; padding-right: 30px"/><br></br>
+                                    <h:outputText value="#{shop.city}"/><br></br>
+                                    <b:commandButton value="Remove" action="#{shopController.removeShop(shop)}" update="likedShopForm" style="background-color: red; margin-left: 20px"/>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+                    </b:panel>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+
+
+</html>
